@@ -11,10 +11,14 @@ var Link = {
             document.querySelector('h1').style.borderBottom='2px solid white'
             document.querySelector('#separate').style.borderBottom='2px solid white'
             document.querySelector('#grid #list').style.borderRight='2px solid white'
+            document.querySelector('#grid #night_day').style.backgroundColor='white';
+            document.querySelector('#grid #night_day').style.color='black';
         } else {
             document.querySelector('h1').style.borderBottom='2px solid black'
             document.querySelector('#separate').style.borderBottom='2px solid black'
             document.querySelector('#grid #list').style.borderRight='2px solid black'
+            document.querySelector('#grid #night_day').style.backgroundColor='black';
+            document.querySelector('#grid #night_day').style.color='white';
         }
         
     }
