@@ -8,12 +8,18 @@ class List extends Component {
         return true;
     }
     render() {
+        const style = {
+            backgroundColor:'black',
+            margin:'10px',
+            Color:'white',
+            fontSize:'120%'
+        }
         var lists = [];
         var data = this.props.data;
         var i = 0;
         while (i < data.length) {
             lists.push(
-            <dt key={data[i].id}>
+            <dt key={data[i].id} style={style}>
                 <a 
                 href={"/content/" + data[i].id} 
                 data-id={data[i].id}

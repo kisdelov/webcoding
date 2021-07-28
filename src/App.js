@@ -8,8 +8,6 @@ import Header from './components/Header';
 import Control from './components/Control'; 
 import './App.css';
 
-
-
 class App extends Component {
 
   constructor(props){
@@ -52,11 +50,12 @@ class App extends Component {
       _article = <CreateContent onSubmit={function(_title, _desc){
         // 콘텐츠에 해당 콘텐츠를 추가
         this.max_content_id = this.max_content_id + 1;
-        var _contents = this.state.contents.concat(
-          {id: this.max_content_id, title: _title, desc:_desc}
-        );
+        var _contents = Array.from(this.state.contents);
+        _contents.push({id: this.max_content_id, title: _title, desc:_desc});
         this.setState({
-          contents:_contents
+          contents:_contents,
+          mode: 'read',
+          selected_content_id : this.max_content_id
         });
       }.bind(this)}></CreateContent>;
     } else if(this.state.mode === 'update'){
@@ -71,7 +70,8 @@ class App extends Component {
           i = i + 1;
         };
         this.setState({
-          contents:_newcontents
+          contents:_newcontents,
+          mode: 'read'
         });
       }.bind(this)}></UpdateContent>;
     }
@@ -96,9 +96,28 @@ class App extends Component {
         });
         }.bind(this)} data={this.state.contents}></List>
         <Control onChangeMode={function(_mode){
-          this.setState({
-            mode: _mode,
-        });
+          if(_mode === 'delete'){
+            if(window.confirm('진짜로?')){
+              var _delcontent = Array.from(this.state.contents);
+              var i = 0;
+              while(i < _delcontent.length){
+                if(_delcontent[i].id === this.state.selected_content_id){
+                  _delcontent.splice(i, 1);
+                  break;
+                }
+                i = i + 1;
+              }
+              this.setState({
+                mode: 'welcome',
+                contents: _delcontent
+              });
+              alert('삭제되었습니다')
+            }
+          } else {
+            this.setState({
+              mode: _mode,
+            });
+          }
         }.bind(this)}></Control>
         {this.getContent()}
       </div>
